@@ -254,12 +254,44 @@
                 gap: 15px;
             }
         }
+        /* 정렬 버튼의 기본 스타일 */
+.sort-options {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sort-options button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #fff;
+    border: 2px solid #ff6347;
+    color: #ff6347;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    margin: 0 10px;
+}
+
+.sort-options button:hover {
+    background-color: #ff6347;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* 활성화된 버튼 스타일 */
+.sort-options button.active {
+    background-color: #ff6347;
+    color: white;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
     </style>
 </head>
 <body>
     <header> 
         <a href="main.html" class="logo-link">
-            <img src="로고.jpg" alt="Logo" id="logo">
+            <img src="로고.png" alt="Logo" id="logo">
         </a>
 
         <nav id="top-nav">
@@ -280,6 +312,12 @@
         </div>
 
         <h1> MEAT 레시피</h1>
+  <!-- 정렬 옵션 버튼 -->
+ 
+  <div class="sort-options">
+    <button id="popularitySort" class="active">인기순</button>
+    <button id="latestSort">최신순</button>
+</div>
 
         <div class="search-container">
             <input type="text" id="search-input" placeholder="레시피 검색...">
@@ -359,6 +397,164 @@
     </footer>
 
     <script>
+// 데이터 배열로 레시피 정보 저장
+// 데이터 배열로 레시피 정보 저장
+const recipes = [
+    { title: "불고기", popularity: 50, date: "2024-10-10", image: "불고기.jpg", link: "bulgogi.html" },
+    { title: "감자탕", popularity: 70, date: "2024-09-15", image: "감자탕.jpg", link: "gamjatang.html" },
+    { title: "돼지갈비", popularity: 90, date: "2024-08-20", image: "돼지갈비.jpg", link: "dwaeji-galbi.html" },
+    { title: "스테이크", popularity: 30, date: "2024-11-01", image: "스테이크.jpg", link: "steak.html" },
+    { title: "립", popularity: 120, date: "2024-07-10", image: "립.jpg", link: "ribs.html" },
+];
+
+// 레시피 목록 렌더링 함수
+function displayRecipes(recipes) {
+    const recipeList = document.getElementById('recipe-list');
+    recipeList.innerHTML = '';  // 기존 리스트 초기화
+    
+    recipes.forEach(recipe => {
+        const recipeItem = document.createElement('div');
+        recipeItem.classList.add('recipe-item');
+        recipeItem.innerHTML = `
+            <a href="${recipe.link}">
+                <img src="${recipe.image}" alt="${recipe.title}">
+            </a>
+            <div class="recipe-info">
+                <h3>${recipe.title}</h3>
+                <p>설명 추가 가능</p>
+                <button class="favorite-icon" data-favorite="false">
+                    <span class="favorite-text">즐겨찾기</span>
+                </button>
+            </div>
+        `;
+        recipeList.appendChild(recipeItem);
+    });
+}
+
+// 검색 기능
+function filterRecipes() {
+    const searchTerm = document.getElementById("search-input").value.toLowerCase();
+    const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm));
+    displayRecipes(filteredRecipes);  // 검색 결과로 필터링된 레시피만 표시
+}
+
+// 정렬 버튼 기능
+document.getElementById('popularitySort').addEventListener('click', () => {
+    setActiveButton('popularitySort');
+    const sortedRecipes = [...recipes].sort((a, b) => b.popularity - a.popularity);
+    displayRecipes(sortedRecipes);
+});
+
+document.getElementById('latestSort').addEventListener('click', () => {
+    setActiveButton('latestSort');
+    const sortedRecipes = [...recipes].sort((a, b) => new Date(b.date) - new Date(a.date));
+    displayRecipes(sortedRecipes);
+});
+
+// 검색 입력 필드에 이벤트 리스너 추가
+document.getElementById('search-input').addEventListener('input', filterRecipes);
+
+// 페이지 로드 시 인기순 정렬로 초기화
+displayRecipes(recipes);
+
+
+// 최신순 정렬 함수
+function sortByNewest() {
+    recipes.sort((a, b) => new Date(b.date) - new Date(a.date));
+    renderRecipes(recipes);
+}
+
+  // 정렬 기능 구현
+  document.getElementById('popularitySort').addEventListener('click', () => {
+            setActiveButton('popularitySort');
+            const sortedRecipes = [...recipes].sort((a, b) => b.popularity - a.popularity);
+            displayRecipes(sortedRecipes);
+        });
+
+        document.getElementById('latestSort').addEventListener('click', () => {
+            setActiveButton('latestSort');
+            const sortedRecipes = [...recipes].sort((a, b) => new Date(b.date) - new Date(a.date));
+            displayRecipes(sortedRecipes);
+        });
+
+      // Set active button class when clicked
+function setActiveButton(id) {
+    const buttons = document.querySelectorAll('.sort-options button');
+    buttons.forEach(button => button.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+// Display recipes after sorting
+function displayRecipes(recipes) {
+    const recipeList = document.getElementById('recipe-list');
+    recipeList.innerHTML = '';  // Clear current list
+    recipes.forEach(recipe => {
+        const recipeItem = document.createElement('div');
+        recipeItem.classList.add('recipe-item');
+        recipeItem.innerHTML = `
+            <a href="${recipe.link}">
+                <img src="${recipe.image}" alt="${recipe.title}">
+            </a>
+            <div class="recipe-info">
+                <h3>${recipe.title}</h3>
+                <p>${recipe.description}</p>
+                <button class="favorite-icon" data-favorite="false">
+                    <span class="favorite-text">즐겨찾기</span>
+                </button>
+            </div>
+        `;
+        recipeList.appendChild(recipeItem);
+    });
+}
+
+// Sorting by popularity (already implemented)
+document.getElementById('popularitySort').addEventListener('click', () => {
+    setActiveButton('popularitySort');
+    const sortedRecipes = [...recipes].sort((a, b) => b.popularity - a.popularity);
+    displayRecipes(sortedRecipes);
+});
+
+// Sorting by newest
+document.getElementById('latestSort').addEventListener('click', () => {
+    setActiveButton('latestSort');
+    const sortedRecipes = [...recipes].sort((a, b) => new Date(b.date) - new Date(a.date));
+    displayRecipes(sortedRecipes);
+});
+
+// Initialize by displaying recipes in popularity order
+displayRecipes(recipes);
+
+
+// HTML에 레시피 리스트 렌더링 함수
+function renderRecipes(recipes) {
+    const recipeList = document.getElementById("recipe-list");
+    recipeList.innerHTML = ""; // 기존 리스트 초기화
+    
+    recipes.forEach(recipe => {
+        recipeList.innerHTML += `
+            <div class="recipe-item" data-title="${recipe.title}">
+                <a href="${recipe.link}">
+                    <img src="${recipe.image}" alt="${recipe.title}">
+                </a>
+                <div class="recipe-info">
+                    <h3>${recipe.title}</h3>
+                    <p>설명 추가 가능</p>
+                    <button class="favorite-icon" data-favorite="false">
+                        <span class="favorite-text">즐겨찾기</span>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// 초기 데이터 렌더링
+renderRecipes(recipes);
+
+// 버튼 클릭 이벤트 추가
+document.getElementById("sort-newest").addEventListener("click", sortByNewest);
+document.getElementById("sort-popular").addEventListener("click", sortByPopularity);
+
         // 즐겨찾기 버튼 클릭 시 이벤트 처리
         const favoriteButtons = document.querySelectorAll('.favorite-icon');
 
@@ -379,6 +575,8 @@
                 }
             });
         });
+
+
     </script>
 </body>
 </html>

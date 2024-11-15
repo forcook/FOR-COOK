@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f5;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.search-section {
+    text-align: center;
+    margin: 20px;
+}
+
+.search-section input {
+    padding: 8px;
+    width: 300px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+.search-section button {
+    padding: 8px 12px;
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.faq-section {
+    width: 80%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.faq-tabs {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.faq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.faq-table th, .faq-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px;
+    margin: 0 3px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+}

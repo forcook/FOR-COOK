@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필 페이지</title>
     <link rel="stylesheet" href="profile.css">
+    <style>
+        /* 이메일 수정 불가 문구 기본 스타일 */
+        .note {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none; /* 기본 상태에서는 보이지 않게 설정 */
+        }
+        /* 강조된 스타일 */
+        .highlight-note {
+            color: #cc0000;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const emailField = document.getElementById("email");
+            const note = document.querySelector(".note");
+
+            // 이메일 필드가 클릭되었을 때 문구 표시
+            emailField.addEventListener("focus", function() {
+                note.style.display = "block";
+            });
+
+            // 이메일 필드에서 벗어났을 때 문구 숨김
+            emailField.addEventListener("blur", function() {
+                note.style.display = "none";
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -18,20 +48,22 @@
             </nav>
             <!-- 상단 로고 (메인 페이지로 이동하게 설정) -->
             <a href="main.html" class="logo-link">
-                <img src="로고.jpg" alt="Logo" id="logo">
+                <img src="로고.png" alt="Logo" id="logo">
             </a>
         </div>
     </header>
+
     <main>
+        <!-- 프로필 정보 섹션 -->
         <div class="profile-section">
             <h2>회원 프로필</h2>
             <div class="profile-info-box">
                 <p><strong>이름:</strong> <span id="displayName">김연아</span></p>
                 <p><strong>이메일:</strong> <span id="displayEmail">Queen@gmail.com</span></p>
-                <p><strong>생년월일:</strong> <span id="displayBirthday">1990-01-01</span></p>
-                <p><strong>성별:</strong> <span id="displayGender">여성</span></p>
             </div>
         </div>
+
+        <!-- 프로필 수정 섹션 -->
         <div class="update-section">
             <h2>프로필 수정</h2>
             <div class="form-box">
@@ -40,21 +72,11 @@
                         <label for="name">이름</label>
                         <input type="text" id="name" name="name" required>
                     </div>
+                    <!-- 이메일 필드 표시 -->
                     <div class="form-group">
                         <label for="email">이메일</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="birthday">생년월일</label>
-                        <input type="date" id="birthday" name="birthday" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">성별</label>
-                        <select id="gender" name="gender" required>
-                            <option value="남성">남성</option>
-                            <option value="여성">여성</option>
-                            <option value="기타">기타</option>
-                        </select>
+                        <input type="email" id="email" name="email" value="Queen@gmail.com" readonly>
+                        <p class="note highlight-note">이메일은 수정할 수 없습니다.</p>
                     </div>
                     <div class="form-group">
                         <label for="password">비밀번호</label>
@@ -65,6 +87,5 @@
             </div>
         </div>
     </main>
-    <script src="profile.js"></script>
 </body>
 </html>

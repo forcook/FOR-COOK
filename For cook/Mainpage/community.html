@@ -3,296 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>커뮤니티 페이지</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>고객센터</title>
+    <link rel="stylesheet" href="community.css">
     <style>
+        /* 기본 스타일 */
         body {
             font-family: Arial, sans-serif;
+            background-color: #fafafa;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
         }
-
         header {
-            background-color: #ffffff;
-            color: #333;
-            padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px; /* Add margin to create separation */
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
+            background-color: #f8b8c5;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
-        #logo {
-            width: 200px;
-            vertical-align: middle;
+        #logo { height: 50px; }
+        #top-right-nav a {
+            margin-left: 20px;
+            display: inline-block;
+            height: 30px;
+            width: 30px;
         }
-
-        #top-nav {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 30px;
+        #top-right-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: pointer;
         }
-
-        #top-nav a {
-            text-decoration: none;
-            color: #333;
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { display: inline; margin-right: 20px; }
+        nav ul li a { text-decoration: none; color: #333; font-weight: bold; }
+        .faq-item { cursor: pointer; text-decoration: none; }
+        .faq-section { padding: 20px; }
+        .faq-tabs li {
+            display: inline;
+            margin-right: 10px;
+            cursor: pointer;
+            font-weight: bold;
         }
-
-        #top-nav a img {
-            width: 40px;
-            height: 40px;
-            vertical-align: middle;
+        .search-section {
+            margin: 20px 0;
+            text-align: center;
         }
-
-        /* 상단 탭과 메인 콘텐츠 간의 간격 조정 */
-        header + main {
-            margin-top: 30px;
+        .search-section input {
+            padding: 10px;
+            width: 30%;
+            font-size: 16px;
+            border: 1px solid #ccc;
         }
-
-        main {
-            display: flex;
-            gap: 20px;
+        .search-section select, .search-section button {
+            padding: 10px;
+            margin-left: 10px;
+            border: 1px solid #ccc;
+        }
+        .search-section button {
+            background-color: #f8b8c5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .faq-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .faq-table th, .faq-table td {
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .faq-table th {
+            background-color: #f8b8c5;
+            color: white;
+        }
+        .faq-tabs li.active {
+            color: #f8b8c5;
+            font-weight: bold;
+            border-bottom: 2px solid #f8b8c5;
+            background-color: rgba(248, 184, 197, 0.2);
+        }
+        .social-icons {
+            text-align: center;
             margin: 20px 0;
         }
-
-        #main-content {
-            flex: 3;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #sidebar {
-            flex: 1;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2, h3 {
-            margin-top: 0;
-        }
-
-        .post {
-            border-bottom: 1px solid #ccc;
-            padding: 10px 0;
-        }
-
-        .post:last-child {
-            border-bottom: none;
-        }
-
-        .post h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #007bff;
-        }
-
-        .post p {
-            margin: 5px 0;
-            color: #666;
-        }
-
-        .post a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .post a:hover {
-            text-decoration: underline;
-        }
-
-        #popular-posts, #recent-activity {
-            margin-bottom: 20px;
-        }
-
-        #popular-posts h2, #recent-activity h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 1.4em;
-        }
-
-        /* 글 작성 섹션 */
-        #post-form {
-    background-color: #f8f8f8;
-    padding: 10px; /* Further reduce padding */
-    border-radius: 8px;
-    margin-bottom: 15px; /* Slightly reduce bottom margin */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 0 auto; /* Center the form section */
-}
-
-#post-form h2 {
-    margin-top: 0;
-    font-size: 1.2em; /* Reduce font size for the heading */
-    color: #333;
-    text-align: center;
-    margin-bottom: 10px; /* Reduce spacing below heading */
-}
-
-#post-form form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px; /* Further reduce gap between form elements */
-}
-
-#post-form input[type="text"],
-#post-form textarea {
-    width: 90%;
-    max-width: 600px;
-    padding: 8px; /* Further reduce padding */
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 1em;
-    color: #333;
-}
-
-#post-form textarea {
-    height: 80px; /* Reduce the height of the textarea */
-}
-
-#post-form button {
-    padding: 8px 15px; /* Reduce button padding further */
-    border: none;
-    background-color: #328cec;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em; /* Reduce font size slightly */
-    transition: background-color 0.3s ease;
-    width: 50%;
-    max-width: 250px; /* Slightly reduce the maximum width of the button */
-}
-
-
-        #post-form button:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            background-color: #ffffff;
-            color: #333;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 30px; /* Add margin to separate footer from content */
-        }
-
-        #social-media a {
-            margin: 0 10px;
-        }
-
-        #social-media img {
+        .social-icons img {
             width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            margin: 0 15px;
+            cursor: pointer;
         }
-
-        /* 반응형 디자인 */
-        @media (max-width: 768px) {
-            main {
-                flex-direction: column;
-            }
-
-            #sidebar {
-                margin-top: 20px;
-            }
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <a href="main.html"><img src="로고.jpg" alt="Logo" id="logo"></a>
-            <nav id="top-nav">
-                <a href="favorite.html" title="즐겨찾기"><img src="즐겨찾기.png" alt="즐겨찾기"></a>
-                <a href="profile.html" title="회원가입"><img src="회원가입.png" alt="회원가입"></a>
-                <a href="login.html" title="로그인"><img src="로그인.png" alt="로그인"></a>
-                <a href="community.html" title="커뮤니티"><img src="커뮤니티.png" alt="커뮤니티"></a>
-            </nav>
+        <a href="main.html" class="logo-link" aria-label="홈으로 이동">
+            <img src="로고.png" alt="Logo" id="logo">
+        </a>
+        <div id="top-right-nav">
+            <a href="favorite.html" title="즐겨찾기"><img src="즐겨찾기.png" alt="즐겨찾기 아이콘"></a>
+            <a href="profile.html" title="프로필"><img src="회원가입.png" alt="프로필 아이콘"></a>
+            <a href="login.html" title="로그인"><img src="로그인.png" alt="로그인 아이콘"></a>
+            <a href="community.html" title="커뮤니티"><img src="커뮤니티.png" alt="커뮤니티 아이콘"></a>
         </div>
     </header>
 
-    <main class="container">
-        <section id="main-content">
-            <h1>커뮤니티 게시판</h1>
-
-            <!-- 글 작성 섹션 -->
-            <section id="post-form">
-                <h2>새 글 작성하기</h2>
-                <form action="/submit-post" method="post">
-                    <input type="text" name="title" placeholder="제목" required>
-                    <textarea name="content" rows="5" placeholder="내용" required></textarea>
-                    <button type="submit">게시하기</button>
-                </form>
-            </section>
-
-            <!-- 최신 게시물 -->
-            <section id="latest-posts">
-                <h2>최신 게시물</h2>
-                <div class="post">
-                    <h3><a href="#">게시물 제목 1</a></h3>
-                    <p>게시물 내용 일부...</p>
-                    <p><small>작성자: 사용자1 | 작성일: 2024-08-29</small></p>
-                </div>
-                <div class="post">
-                    <h3><a href="#">게시물 제목 2</a></h3>
-                    <p>게시물 내용 일부...</p>
-                    <p><small>작성자: 사용자2 | 작성일: 2024-08-28</small></p>
-                </div>
-                <!-- 추가 게시물 -->
-            </section>
+    <main>
+        <section class="search-section">
+            <input type="text" id="search-query" placeholder="질문을 입력하세요">
+            <select id="search-filter">
+                <option value="nickname">닉네임</option>
+                <option value="content" selected>내용</option>
+            </select>
+            <button onclick="searchFAQ()">검색</button>
         </section>
 
-        <aside id="sidebar">
-            <!-- 인기 게시물 -->
-            <section id="popular-posts">
-                <h2>인기 게시물</h2>
-                <div class="post">
-                    <h3><a href="#">인기 게시물 제목 1</a></h3>
-                </div>
-                <div class="post">
-                    <h3><a href="#">인기 게시물 제목 2</a></h3>
-                </div>
-                <!-- 추가 인기 게시물 -->
-            </section>
-
-            <!-- 최근 활동 -->
-            <section id="recent-activity">
-                <h2>최근 활동</h2>
-                <div class="post">
-                    <h3><a href="#">최근 활동 제목 1</a></h3>
-                    <p><small>사용자1 | 2024-08-29</small></p>
-                </div>
-                <div class="post">
-                    <h3><a href="#">최근 활동 제목 2</a></h3>
-                    <p><small>사용자2 | 2024-08-28</small></p>
-                </div>
-                <!-- 추가 최근 활동 -->
-            </section>
-        </aside>
+        <section class="faq-section">
+            <ul class="faq-tabs">
+                <li data-tab="all" class="active" onclick="filterTab('all')">레시피 관련</li>
+                <li data-tab="order" onclick="filterTab('order')">의견 교환</li>
+                <li data-tab="payment" onclick="filterTab('payment')">결제 관련</li>
+                <li data-tab="site" onclick="filterTab('site')">사이트 이용</li>
+            </ul>
+            <table class="faq-table" id="faq-table">
+                <thead>
+                    <tr>
+                        <th>닉네임</th>
+                        <th>내용</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        <!-- 카테고리별 항목 추가 -->
+                        <tr class="faq-item" data-category="all">
+                            <td><a href="page1.html">퀸연아</a></td>
+                            <td class="faq-item-content"><a href="page1.html">필독! 비건 음식 더 맛있게 조리하는 꿀 TIP 대방출!</a></td>
+                            <td>2024-11-13</td>
+                        </tr>
+                        <tr class="faq-item" data-category="order">
+                            <td><a href="page2.html">BTS 진</a></td>
+                            <td class="faq-item-content"><a href="page2.html">JMT_ "세상에서 제일 맛있는" 고기 조리법 공개</a></td>
+                            <td>2024-11-12</td>
+                        </tr>
+                        <tr class="faq-item" data-category="payment">
+                            <td><a href="page3.html">이순신</a></td>
+                            <td class="faq-item-content"><a href="page3.html">할인 코드 사용 방법 및 문제 해결</a></td>
+                            <td>2024-11-11</td>
+                        </tr>
+                        <tr class="faq-item" data-category="site">
+                            <td><a href="page4.html">홍길동</a></td>
+                            <td class="faq-item-content"><a href="page4.html">사이트 오류 해결 방법 문의</a></td>
+                            <td>2024-11-10</td>
+                        </tr>
+                        <tr class="faq-item" data-category="all">
+                            <td><a href="page5.html">김연아</a></td>
+                            <td class="faq-item-content"><a href="page5.html">맛있는 레시피로 만들기 위한 간단한 팁</a></td>
+                            <td>2024-11-09</td>
+                        </tr>
+                        <tr class="faq-item" data-category="order">
+                            <td><a href="page6.html">손흥민</a></td>
+                            <td class="faq-item-content"><a href="page6.html">고기 맛있게 굽는 팁 공유</a></td>
+                            <td>2024-11-08</td>
+                        </tr>
+                        <tr class="faq-item" data-category="payment">
+                            <td><a href="page7.html">아이유</a></td>
+                            <td class="faq-item-content"><a href="page7.html">결제 시 오류 해결 방법</a></td>
+                            <td>2024-11-07</td>
+                        </tr>
+                    </tbody>
+                </tbody>
+            </table>
+        </section>
     </main>
 
+    <section class="social-icons">
+        <a href="https://www.instagram.com/" target="_blank">
+            <img src="instagram.png" alt="Instagram">
+        </a>
+        <a href="https://www.blog.com/" target="_blank">
+            <img src="blog.png" alt="Blog">
+        </a>
+        <a href="https://www.youtube.com/" target="_blank">
+            <img src="youtube.png" alt="YouTube">
+        </a>
+    </section>
+
     <footer>
-        <div id="social-media">
-            <a href="https://www.instagram.com"><img src="instagram.png" alt="Instagram"></a>
-            <a href="https://www.blog.com"><img src="blog.png" alt="Blog"></a>
-            <a href="https://www.youtube.com"><img src="youtube.png" alt="YouTube"></a>
-        </div>
+        <p class="copyright">© 2024 For Cook. All rights reserved.</p>
     </footer>
+
+    <script>
+        function filterTab(category) {
+            document.querySelectorAll('.faq-tabs li').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.faq-tabs li[data-tab="${category}"]`).classList.add('active');
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.style.display = (category === 'all' || item.getAttribute('data-category') === category) ? '' : 'none';
+            });
+        }
+
+        function searchFAQ() {
+            const query = document.getElementById('search-query').value.toLowerCase();
+            const filterType = document.getElementById('search-filter').value;
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const content = item.querySelector(filterType === 'nickname' ? 'td a' : 'td:nth-child(2) a').textContent.toLowerCase();
+                item.style.display = content.includes(query) ? '' : 'none';
+            });
+        }
+    </script>
 </body>
 </html>
